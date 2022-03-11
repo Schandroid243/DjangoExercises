@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title%}
+Liste des clients
+{% endblock title %}
+
+{% block content%}
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Liste des clients</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Client</li>
+            </ol>
+        </nav>
+    </div>
+
+    <br />
+    <div>
+        <a class="btn btn-primary" href="{% url 'creer_client' %}">Ajouter</a>
+    </div>
+
+    
+    <div class="table-responsive hide-cols" style="margin-top: 10px;">
+        
+        <table class="table table-striped table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th class="ProfileImage">
+                       Profile
+                    </th>
+                    <th class="Nom">
+                        Nom
+                    </th>
+                    <th class="Prenom">
+                        Prenom
+                    </th>
+                    <th class="PostNom">
+                        PostNom
+                    </th>
+                    <th class="Tel">
+                        Tel
+                    </th>
+                    <th class="Entreprise">
+                        Entreprise
+                    </th>
+                    <th style="width: 20%">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for client in clients %}
+                
+                    <tr>
+                        <td><img src="{{client.profile.url}}" width="60" height="60" /></td>
+                        <td>
+                            {{client.nom}}
+                        </td>
+                        <td>
+                            {{client.prenom}}
+                        </td>
+                        <td>
+                            {{client.postnom}}
+                        </td>
+                        <td class="tel_col">
+                            {{client.tel}}
+                        </td>
+                        <td class="entreprise_col">
+                            {{client.entreprise}}
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" href="{% url 'modifier_client' client.id %}"><i class="fas fa-edit"></i></a> |
+                            <a class="btn btn-info" href="{% url 'details_client' client.id %}"><i class="fas fa-user"></i></a> |
+                            <a class="btn btn-danger" href="{% url 'supprimer_client' client.id %}"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            
+        </table>
+    </div>
+</main>
+
+{% endblock content %}
